@@ -33,7 +33,7 @@ public class CustomerClient {
             System.out.println("Enter choice:");
 
             int choice = sc.nextInt();
-            sc.nextLine(); // Consume newline
+            sc.nextLine();
 
             switch (choice) {
                 case 1:
