@@ -1,12 +1,16 @@
 package model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Policy {
     private int id;
     private String name;
     private String description;
-    private double price; // Assuming price is a relevant attribute
+    private double price;
+    private int userId;
+    private Set<Integer> appliedUserIds;
 
-    // Constructors
     public Policy(int id, String name, String description, double price) {
         this.id = id;
         this.name = name;
@@ -15,9 +19,10 @@ public class Policy {
     }
 
     public Policy() {
+        super();
+        this.appliedUserIds = new HashSet<>();
     }
 
-    // Getters and setters
     public int getId() {
         return id;
     }
@@ -48,5 +53,23 @@ public class Policy {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void applyPolicy(int userId) {
+        this.appliedUserIds.add(userId);
+    }
+    public boolean isUserApplied(int userId) {
+        return this.appliedUserIds.contains(userId);
+    }
+    public Set<Integer> getAppliedUserIds() {
+        return appliedUserIds;
     }
 }

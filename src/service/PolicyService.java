@@ -5,6 +5,7 @@ import model.Policy;
 import model.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PolicyService {
     private PolicyDAO policyDAO;
@@ -21,10 +22,22 @@ public class PolicyService {
         return policyDAO.getPolicyById(id);
     }
 
-    public void applyForPolicy(User user, Policy policy) {
+    public List<Policy> getPoliciesByUser(User user) {
+        return policyDAO.getAllPolicies().stream()
+                .filter(policy -> policy.getUserId() == user.getUid())
+                .collect(Collectors.toList());
     }
 
-    public List<Policy> getPoliciesByUser(User user) {
-      return null;
+    public void applyForPolicy(User user, Policy policy) {
+        if (policy.isUserApplied(user.getUid())) {
+            System.out.println("You have already applied for this policy.");
+            return;
+        }
+
+        policy.applyPolicy(user.getUid());
+        System.out.println("Applied for policy: " + policy.getName());
+
+        policyDAO.updatePolicy(policy);
     }
+
 }

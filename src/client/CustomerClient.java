@@ -72,25 +72,34 @@ public class CustomerClient {
 
     private void applyForPolicy() {
         List<Policy> policies = policyService.getAllPolicies();
-        System.out.println("Available Policies:");
         for (Policy policy : policies) {
             System.out.println(policy.getId() + ": " + policy.getName());
         }
 
-        System.out.println("Enter the ID of the policy you want to apply for:");
+        System.out.println("Enter the ID of the policy to apply for:");
         int policyId = sc.nextInt();
-        sc.nextLine(); // Consume newline
+        sc.nextLine();
 
         Policy selectedPolicy = policyService.getPolicyById(policyId);
         if (selectedPolicy != null) {
             policyService.applyForPolicy(loggedInUser, selectedPolicy);
-            System.out.println("Applied for policy: " + selectedPolicy.getName());
         } else {
-            System.out.println("Invalid policy ID.");
+            System.out.println("Policy not found.");
         }
     }
 
 
+
     private void viewMyPolicies() {
+        List<Policy> myPolicies = policyService.getPoliciesByUser(loggedInUser);
+        if (myPolicies.isEmpty()) {
+            System.out.println("You currently have no policies.");
+        } else {
+            System.out.println("Your Policies:");
+            for (Policy policy : myPolicies) {
+                System.out.println("Policy ID: " + policy.getId() + ", Name: " + policy.getName() + ", Description: " + policy.getDescription());
+            }
+        }
     }
+
 }
