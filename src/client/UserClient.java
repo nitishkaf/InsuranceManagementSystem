@@ -2,6 +2,7 @@ package client;
 
 import service.CategoryService;
 import service.PolicyService;
+import service.SubCategoryService;
 import service.UserService;
 import model.User;
 import java.util.Scanner;
@@ -9,11 +10,14 @@ import java.util.Scanner;
 public class UserClient {
     private UserService userService;
     private CategoryService categoryService;
+
+    private SubCategoryService subCategoryService;
     private PolicyService policyService;
 
-    public UserClient(UserService userService, CategoryService categoryService, PolicyService policyService) {
+    public UserClient(UserService userService, CategoryService categoryService, SubCategoryService subCategoryService, PolicyService policyService) {
         this.userService = userService;
         this.categoryService = categoryService;
+        this.subCategoryService = subCategoryService;
         this.policyService = policyService;
     }
 
@@ -91,7 +95,7 @@ public class UserClient {
                 adminClient.runAdminInterface();
             }
             if ("Customer".equals(user.getRoleName())) {
-                CustomerClient customerClient = new CustomerClient(categoryService, policyService, user);
+                CustomerClient customerClient = new CustomerClient(categoryService, subCategoryService, policyService, user);
                 customerClient.runCustomerInterface();
             }
         } else {

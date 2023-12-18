@@ -5,18 +5,22 @@ import java.util.Scanner;
 
 import model.Category;
 import model.Policy;
+import model.SubCategory;
 import service.CategoryService;
 import service.PolicyService;
 import model.User;
+import service.SubCategoryService;
 
 public class CustomerClient {
+    private SubCategoryService subCategoryService;
     private CategoryService categoryService;
     private PolicyService policyService;
     private User loggedInUser;
     private Scanner sc;
 
-    public CustomerClient(CategoryService categoryService, PolicyService policyService, User loggedInUser) {
+    public CustomerClient(CategoryService categoryService, SubCategoryService subCategoryService, PolicyService policyService, User loggedInUser) {
         this.categoryService = categoryService;
+        this.subCategoryService = subCategoryService;
         this.policyService = policyService;
         this.loggedInUser = loggedInUser;
         this.sc = new Scanner(System.in);
@@ -68,6 +72,15 @@ public class CustomerClient {
 
 
     private void viewSubCategories() {
+        List<SubCategory> subCategories = subCategoryService.getAllSubCategories();
+        if (subCategories.isEmpty()) {
+            System.out.println("No sub-categories available.");
+        } else {
+            System.out.println("Sub-Categories:");
+            for (SubCategory subCategory : subCategories) {
+                System.out.println(subCategory.getId() + ": " + subCategory.getName());
+            }
+        }
     }
 
     private void applyForPolicy() {
