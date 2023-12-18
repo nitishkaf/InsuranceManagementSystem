@@ -24,7 +24,6 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
     @Override
     public void updateCategory(Category category) {
-        // Find the category with the same ID and update it
         for (int i = 0; i < categories.size(); i++) {
             if (categories.get(i).getId() == category.getId()) {
                 categories.set(i, category);
