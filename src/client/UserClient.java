@@ -1,14 +1,20 @@
 package client;
 
+import service.CategoryService;
+import service.PolicyService;
 import service.UserService;
 import model.User;
 import java.util.Scanner;
 
 public class UserClient {
     private UserService userService;
+    private CategoryService categoryService;
+    private PolicyService policyService;
 
-    public UserClient(UserService userService) {
+    public UserClient(UserService userService, CategoryService categoryService, PolicyService policyService) {
         this.userService = userService;
+        this.categoryService = categoryService;
+        this.policyService = policyService;
     }
 
     public void run() {
@@ -81,8 +87,10 @@ public class UserClient {
             if("Admin".equals(user.getRoleName())){
                 AdminClient adminClient = new AdminClient(userService);
                 adminClient.runAdminInterface();
-            } else {
-                // Customer menu
+            }
+            if ("Customer".equals(user.getRoleName())) {
+                CustomerClient customerClient = new CustomerClient(categoryService, policyService, user);
+                customerClient.runCustomerInterface();
             }
         } else {
             System.out.println("Invalid Username or Password.");
