@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import model.Category;
 import model.Policy;
+import model.SubCategory;
 import model.User;
 import service.PolicyService;
 import service.SubCategoryService;
@@ -149,6 +150,85 @@ public class AdminClient {
         }
 
     private void manageSubCategories() {
+        while (true) {
+            System.out.println("Sub-Category Management:");
+            System.out.println("1. Add Sub-Category");
+            System.out.println("2. View Sub-Categories");
+            System.out.println("3. Update Sub-Category");
+            System.out.println("4. Delete Sub-Category");
+            System.out.println("5. Go Back");
+            System.out.print("Enter choice: ");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1:
+                    addSubCategory();
+                    break;
+                case 2:
+                    viewSubCategories();
+                    break;
+                case 3:
+                    updateSubCategory();
+                    break;
+                case 4:
+                    deleteSubCategory();
+                    break;
+                case 5:
+                    return;
+            }
+        }
+    }
+
+    private void addSubCategory() {
+        System.out.print("Enter Sub-Category Name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter Parent Category ID: ");
+        int categoryId = sc.nextInt();
+        sc.nextLine();
+
+        SubCategory subCategory = new SubCategory();
+        subCategory.setName(name);
+        subCategory.setCategoryId(categoryId);
+        subCategoryService.addSubCategory(subCategory);
+        System.out.println("Sub-Category added successfully.");
+    }
+
+    private void viewSubCategories() {
+        List<SubCategory> subCategories = subCategoryService.getAllSubCategories();
+        if (subCategories.isEmpty()) {
+            System.out.println("No sub-categories available.");
+        } else {
+            System.out.println("Sub-Categories:");
+            for (SubCategory subCategory : subCategories) {
+                System.out.println("ID: " + subCategory.getId() + ", Name: " + subCategory.getName() + ", Parent Category ID: " + subCategory.getCategoryId());
+            }
+        }
+    }
+
+    private void updateSubCategory() {
+        System.out.print("Enter Sub-Category ID to update: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        SubCategory subCategory = subCategoryService.getSubCategoryById(id);
+        if (subCategory != null) {
+            System.out.print("Enter new name for Sub-Category: ");
+            String newName = sc.nextLine();
+            subCategory.setName(newName);
+            subCategoryService.updateSubCategory(subCategory);
+            System.out.println("Sub-Category updated successfully.");
+        } else {
+            System.out.println("Sub-Category not found.");
+        }
+    }
+
+    private void deleteSubCategory() {
+        System.out.print("Enter Sub-Category ID to delete: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        subCategoryService.deleteSubCategory(id);
+        System.out.println("Sub-Category deleted successfully.");
     }
 
     private void managePolicies() {
