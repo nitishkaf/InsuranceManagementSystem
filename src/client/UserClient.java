@@ -74,7 +74,7 @@ public class UserClient {
         System.out.println("Enter Password:");
         String password = sc.nextLine();
 
-        if (userService.logicUser(username, password)) {
+        if (userService.loginUser(username, password)) {
             System.out.println("Login Successful!");
         } else {
             System.out.println("Invalid Username or Password.");

@@ -13,7 +13,7 @@ public class UserService {
         userDAO.addUser(user);
     }
 
-    public boolean logicUser(String username, String password) {
+    public boolean loginUser(String username, String password) {
         User user = userDAO.getUserByUsername(username); // Use the instance to call the method
         return user != null && user.getPassword().equals(password);
     }
