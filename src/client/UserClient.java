@@ -34,7 +34,7 @@ public class UserClient {
                     loginUser(sc);
                     break;
                 case 3:
-                    // Forgot password logic
+                    forgotPassword(sc);
                     break;
                 case 4:
                     System.out.println("Thanks for Using the Insurance Management System!");
@@ -57,7 +57,7 @@ public class UserClient {
         System.out.println("Enter Password:");
         String password = sc.nextLine();
 
-        User newUser = new User(); // Assuming a constructor without parameters
+        User newUser = new User();
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
@@ -80,4 +80,21 @@ public class UserClient {
             System.out.println("Invalid Username or Password.");
         }
     }
+
+    private void forgotPassword(Scanner sc) {
+        System.out.println("Enter your Username:");
+        String username = sc.nextLine();
+
+        User user = userService.getUserByUsername(username);
+        if (user != null) {
+            System.out.println("Enter your new password:");
+            String newPassword = sc.nextLine();
+            user.setPassword(newPassword);
+            userService.updateUser(user);
+            System.out.println("Password successfully updated.");
+        } else {
+            System.out.println("User not found.");
+        }
+    }
+
 }

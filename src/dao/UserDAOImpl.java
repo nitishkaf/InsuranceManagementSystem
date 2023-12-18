@@ -17,4 +17,14 @@ public class UserDAOImpl implements UserDAO {
     public User getUserByUsername(String username){
         return users.stream().filter(user -> user.getUserName().equals(username)).findFirst().orElse(null);
     }
+
+    @Override
+    public void updateUser(User updatedUser) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUserName().equals(updatedUser.getUserName())) {
+                users.set(i, updatedUser);
+                break;
+            }
+        }
+    }
 }

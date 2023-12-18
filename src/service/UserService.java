@@ -17,4 +17,12 @@ public class UserService {
         User user = userDAO.getUserByUsername(username); // Use the instance to call the method
         return user != null && user.getPassword().equals(password);
     }
+
+    public User getUserByUsername(String username) {
+        return userDAO.getUserByUsername(username);
+    }
+
+    public void updateUser(User user) {
+        userDAO.updateUser(user);
+    }
 }
