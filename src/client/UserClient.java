@@ -19,6 +19,7 @@ public class UserClient {
 
     public void run() {
         Scanner sc = new Scanner(System.in);
+        boolean running = true;
 
         while (true) {
             System.out.println("-------------------------------------------------------");
@@ -43,6 +44,7 @@ public class UserClient {
                     forgotPassword(sc);
                     break;
                 case 4:
+                    running = false;
                     System.out.println("Thanks for Using the Insurance Management System!");
                     System.exit(0);
                 default:

@@ -20,6 +20,7 @@ public class AdminClient {
             System.out.println("Admin Menu:");
             System.out.println("1. View User List");
             System.out.println("2. Manage Categories");
+            System.out.println("3. Go back");
             System.out.println("Enter choice:");
 
             int choice = sc.nextInt();
@@ -29,6 +30,9 @@ public class AdminClient {
                 case 1:
                     viewUserList();
                     break;
+                case 3:
+                    return;
+
             }
         }
     }

@@ -12,6 +12,8 @@ public class UserService {
     }
 
     public void registerUser(User user) {
+
+        user.setRoleName("Customer");
         userDAO.addUser(user);
     }
 
