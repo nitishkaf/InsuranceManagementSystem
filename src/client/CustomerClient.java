@@ -1,6 +1,10 @@
 package client;
 
+import java.util.List;
 import java.util.Scanner;
+
+import model.Category;
+import model.Policy;
 import service.CategoryService;
 import service.PolicyService;
 import model.User;
@@ -51,13 +55,41 @@ public class CustomerClient {
     }
 
     private void viewCategories() {
+        List<Category> categories = categoryService.getAllCategories();
+        if (categories.isEmpty()) {
+            System.out.println("No categories available.");
+        } else {
+            System.out.println("Categories:");
+            for (Category category : categories) {
+                System.out.println(category.getId() + ": " + category.getName());
+            }
+        }
     }
+
 
     private void viewSubCategories() {
     }
 
     private void applyForPolicy() {
+        List<Policy> policies = policyService.getAllPolicies();
+        System.out.println("Available Policies:");
+        for (Policy policy : policies) {
+            System.out.println(policy.getId() + ": " + policy.getName());
+        }
+
+        System.out.println("Enter the ID of the policy you want to apply for:");
+        int policyId = sc.nextInt();
+        sc.nextLine(); // Consume newline
+
+        Policy selectedPolicy = policyService.getPolicyById(policyId);
+        if (selectedPolicy != null) {
+            policyService.applyForPolicy(loggedInUser, selectedPolicy);
+            System.out.println("Applied for policy: " + selectedPolicy.getName());
+        } else {
+            System.out.println("Invalid policy ID.");
+        }
     }
+
 
     private void viewMyPolicies() {
     }

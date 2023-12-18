@@ -1,5 +1,6 @@
 package client;
 
+import dao.PolicyDAOImpl;
 import dao.UserDAOImpl;
 import service.CategoryService;
 import service.PolicyService;
@@ -10,7 +11,8 @@ public class Main {
         UserDAOImpl userDAO = new UserDAOImpl();
         UserService userService = new UserService(userDAO);
         CategoryService categoryService = new CategoryService();
-        PolicyService policyService = new PolicyService();
+        PolicyDAOImpl policyDAO = new PolicyDAOImpl();
+        PolicyService policyService = new PolicyService(policyDAO);
         UserClient userClient = new UserClient(userService, categoryService, policyService);
 
         userClient.run();
