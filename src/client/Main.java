@@ -19,7 +19,7 @@ public class Main {
         SubCategoryService subCategoryService = new SubCategoryService(subCategoryDAO);
         PolicyDAOImpl policyDAO = new PolicyDAOImpl();
         PolicyService policyService = new PolicyService(policyDAO);
-        UserClient userClient = new UserClient(userService, subCategoryService, categoryService, policyService);
+        UserClient userClient = new UserClient(userService, categoryService, subCategoryService, policyService);
 
         userClient.run();
     }
