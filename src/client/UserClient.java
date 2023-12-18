@@ -74,8 +74,16 @@ public class UserClient {
         System.out.println("Enter Password:");
         String password = sc.nextLine();
 
-        if (userService.loginUser(username, password)) {
+        User user = userService.logicUser(username, password);
+
+        if (user != null){
             System.out.println("Login Successful!");
+            if("Admin".equals(user.getRoleName())){
+                AdminClient adminClient = new AdminClient(userService);
+                adminClient.runAdminInterface();
+            } else {
+                // Customer menu
+            }
         } else {
             System.out.println("Invalid Username or Password.");
         }

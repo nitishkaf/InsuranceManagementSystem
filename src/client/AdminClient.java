@@ -1,21 +1,47 @@
 package client;
 
-import service.UserService;
-
+import java.util.List;
 import java.util.Scanner;
+
+import model.User;
+import service.UserService;
 
 public class AdminClient {
     private UserService userService;
+    private Scanner sc;
 
-    public AdminClient(UserService userService){
+    public AdminClient(UserService userService) {
         this.userService = userService;
+        this.sc = new Scanner(System.in);
     }
 
-    public void run(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter username: ");
-        String username = scanner.nextLine();
-        System.out.println("Enter password");
-        String password = scanner.next();
+    public void runAdminInterface() {
+        while (true) {
+            System.out.println("Admin Menu:");
+            System.out.println("1. View User List");
+            System.out.println("2. Manage Categories");
+            System.out.println("Enter choice:");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1:
+                    viewUserList();
+                    break;
+            }
+        }
+    }
+
+    private void viewUserList() {
+        List<User> users = userService.getAllUsers();
+        if (users.isEmpty()) {
+            System.out.println("No users found");
+        } else {
+            System.out.println("User List: ");
+            for(User user: users) {
+                System.out.println("ID: " + user.getUid() + " , Name: " + user.getFirstName() + " " + user.getLastName() + ", Username: " + user.getUserName());
+            }
+        }
     }
 }

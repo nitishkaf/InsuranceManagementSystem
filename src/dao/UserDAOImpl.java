@@ -27,4 +27,9 @@ public class UserDAOImpl implements UserDAO {
             }
         }
     }
+
+    @Override
+    public List<User> getAllUsers(){
+        return new ArrayList<>(users);
+    }
 }
