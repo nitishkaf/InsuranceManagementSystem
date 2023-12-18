@@ -35,7 +35,7 @@ public class UserClient {
 
             System.out.println("Enter Your Choice:");
             int choice = sc.nextInt();
-            sc.nextLine(); // Consume the newline left-over
+            sc.nextLine();
 
             switch (choice) {
                 case 1:
@@ -91,7 +91,7 @@ public class UserClient {
         if (user != null){
             System.out.println("Login Successful!");
             if("Admin".equals(user.getRoleName())){
-                AdminClient adminClient = new AdminClient(userService);
+                AdminClient adminClient = new AdminClient(userService, categoryService, subCategoryService, policyService);
                 adminClient.runAdminInterface();
             }
             if ("Customer".equals(user.getRoleName())) {

@@ -14,6 +14,18 @@ public class PolicyService {
         this.policyDAO = policyDAO;
     }
 
+
+    public void addPolicy(Policy policy) {
+        policyDAO.addPolicy(policy);
+    }
+
+    public void updatePolicy(Policy policy) {
+        policyDAO.updatePolicy(policy);
+    }
+
+    public void deletePolicy(int id) {
+        policyDAO.deletePolicy(id);
+    }
     public List<Policy> getAllPolicies() {
         return policyDAO.getAllPolicies();
     }
